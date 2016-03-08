@@ -10,35 +10,54 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.whattoeat.model.Food;
+
+import java.util.ArrayList;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
-    String[] foodArray = new String[]{
-            "ข้าวผัด", "ข้าวไข่เจียว", "ข้าวหน้าเป็ด",
-            "ข้าวมันไก่", "ข้าวหมูแดง", "ราดหน้า",
-            "ผัดซีอิ๊ว", "ผัดไทย", "ส้มตำไก่ย่าง"
-    };
-
-    int[] foodPictureArray = new int[]{
-            R.drawable.kao_pad, R.drawable.kao_kai_jeaw, R.drawable.kao_na_ped,
-            R.drawable.kao_mun_kai, R.drawable.kao_moo_dang, R.drawable.rad_na,
-            R.drawable.pad_sie_eew, R.drawable.pad_thai, R.drawable.som_tum_kai_yang
-    };
+    ArrayList<Food> mFoodList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Food f = new Food("ข้าวผัด", R.drawable.kao_pad);
+        mFoodList.add(f);
+
+        f = new Food("ข้าวไข่เจียว", R.drawable.kao_kai_jeaw);
+        mFoodList.add(f);
+
+        f = new Food("ข้าวหน้าเป็ด", R.drawable.kao_na_ped);
+        mFoodList.add(f);
+
+        f = new Food("ข้าวมันไก่", R.drawable.kao_mun_kai);
+        mFoodList.add(f);
+
+        f = new Food("ข้าวหมูแดง", R.drawable.kao_moo_dang);
+        mFoodList.add(f);
+
+        f = new Food("ราดหน้า", R.drawable.rad_na);
+        mFoodList.add(f);
+
+        f = new Food("ผัดซีอิ๊ว", R.drawable.pad_sie_eew);
+        mFoodList.add(f);
+
+        f = new Food("ผัดไทย", R.drawable.pad_thai);
+        mFoodList.add(f);
+
+        f = new Food("ส้มตำไก่ย่าง", R.drawable.som_tum_kai_yang);
+        mFoodList.add(f);
+
         Button randomButton = (Button) findViewById(R.id.random_button);
         randomButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Random r = new Random();
-                int randomIndex = r.nextInt(foodArray.length);
-                String randomFood = foodArray[randomIndex];
-                int randomFoodPicture = foodPictureArray[randomIndex];
+                int randomIndex = r.nextInt(mFoodList.size());
+                Food randomFood = mFoodList.get(randomIndex);
 
                 AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
 
@@ -49,11 +68,11 @@ public class MainActivity extends AppCompatActivity {
 
                 // อ้างอิงไปยัง ImageView (แสดงภาพอาหาร) ใน layout
                 ImageView dishImageView = (ImageView) layout.findViewById(R.id.dish_image_view);
-                dishImageView.setImageResource(randomFoodPicture);
+                dishImageView.setImageResource(randomFood.picture);
 
                 // อ้างอิงไปยัง TextView (แสดงชื่ออาหาร) ใน layout
                 TextView dishNameTextView = (TextView) layout.findViewById(R.id.dish_name_text_view);
-                dishNameTextView.setText(randomFood);
+                dishNameTextView.setText(randomFood.name);
 
                 dialog.setView(layout);
                 dialog.show();
