@@ -11,53 +11,22 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.whattoeat.model.Food;
-
-import java.util.ArrayList;
-import java.util.Random;
+import com.example.whattoeat.model.FoodMenu;
 
 public class MainActivity extends AppCompatActivity {
 
-    ArrayList<Food> mFoodList = new ArrayList<>();
+    FoodMenu mFoodMenu = new FoodMenu();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Food f = new Food("ข้าวผัด", R.drawable.kao_pad);
-        mFoodList.add(f);
-
-        f = new Food("ข้าวไข่เจียว", R.drawable.kao_kai_jeaw);
-        mFoodList.add(f);
-
-        f = new Food("ข้าวหน้าเป็ด", R.drawable.kao_na_ped);
-        mFoodList.add(f);
-
-        f = new Food("ข้าวมันไก่", R.drawable.kao_mun_kai);
-        mFoodList.add(f);
-
-        f = new Food("ข้าวหมูแดง", R.drawable.kao_moo_dang);
-        mFoodList.add(f);
-
-        f = new Food("ราดหน้า", R.drawable.rad_na);
-        mFoodList.add(f);
-
-        f = new Food("ผัดซีอิ๊ว", R.drawable.pad_sie_eew);
-        mFoodList.add(f);
-
-        f = new Food("ผัดไทย", R.drawable.pad_thai);
-        mFoodList.add(f);
-
-        f = new Food("ส้มตำไก่ย่าง", R.drawable.som_tum_kai_yang);
-        mFoodList.add(f);
-
         Button randomButton = (Button) findViewById(R.id.random_button);
         randomButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Random r = new Random();
-                int randomIndex = r.nextInt(mFoodList.size());
-                Food randomFood = mFoodList.get(randomIndex);
+                Food randomFood = mFoodMenu.getRandomFood();
 
                 AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
 
